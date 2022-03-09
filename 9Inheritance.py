@@ -11,21 +11,28 @@ class MagicCharacter(Character):
     def __init__(self, strength, dexterity, constitution, intelligence, wisdom, charisma):
         super().__init__(strength, dexterity, constitution, intelligence, wisdom, charisma)
         self.mana = intelligence * 30 + 50
+        self.maxmana = self.mana
 
     def show_hitpoint_with_mana(self):
         self.show_hitpoint()
         print("My mana is %s!" % str(self.mana))
     
     def magic_missle(self):
-        self.mana -= 5
-        return random.randint(5, 10)
+        if self.mana >= 5:
+            self.mana -= 5
+            return random.randint(5, 10)
+        else:
+            return 0
     
     def fireball(self):
-        self.mana -= 10
-        return random.randint(10, 20)
+        if self.mana >= 10:
+            self.mana -= 10
+            return random.randint(10, 20)
+        else:
+            return 0
     
     def heal_mana(self, healed):
-        self.mana += healed
+        self.mana = min(self.maxmana, self.mana + healed)
 
 if __name__ == "__main__":
     a = MagicCharacter(strength=25, dexterity=10, constitution=12, intelligence=9, wisdom=18, charisma=11)
