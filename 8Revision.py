@@ -16,6 +16,7 @@ class Character:
         self.charisma     = charisma
         self.hitpoints    = constitution * 30 + 50
         self.maxhitpoints = self.hitpoints
+        self.death        = False
 
     def show_stats(self):
         for stat in self.__stats__:
@@ -25,7 +26,8 @@ class Character:
         print("My hitpoint is %s!" % (str(self.hitpoints)))
     
     def attack(self):
-        return random.randint(int(0.4 * self.strength), self.strength)
+        if not self.death:
+            return random.randint(int(0.4 * self.strength), self.strength)
     
     def defense(self, attacked):
         if random.randint(1, 20) < self.dexterity:
@@ -33,12 +35,14 @@ class Character:
         else:
             if self.hitpoints < attacked:
                 self.hitpoints = 0
+                self.death = True
             else:
                 self.hitpoints -= attacked
 
 
     def heal(self, healed):
-        self.hitpoints = min(self.maxhitpoints, self.hitpoints + healed)
+        if not self.death:
+            self.hitpoints = min(self.maxhitpoints, self.hitpoints + healed)
 
 if __name__ == "__main__":
     a = Character(strength=25, dexterity=10, constitution=12, intelligence=9, wisdom=18, charisma=11)
