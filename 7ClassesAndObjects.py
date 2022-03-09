@@ -7,17 +7,14 @@ import random
 class Character:
     __stats__  = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"]
 
-    strength     = 8
-    dexterity    = 10
-    constitution = 12
-    intelligence = 9
-    wisdom       = 18
-    charisma     = 11
-
-    hitpoints = constitution * 30 + 50
-
-    def __init__(self):
-        pass
+    def __init__(self, strength, dexterity, constitution, intelligence, wisdom, charisma):
+        self.strength     = strength
+        self.dexterity    = dexterity
+        self.constitution = constitution
+        self.intelligence = intelligence
+        self.wisdom       = wisdom
+        self.charisma     = charisma
+        self.hitpoints    = constitution * 30 + 50
 
     def show_stats(self):
         for stat in self.__stats__:
