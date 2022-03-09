@@ -26,3 +26,25 @@ class MagicCharacter(Character):
     
     def heal_mana(self, healed):
         self.mana += healed
+
+if __name__ == "__main__":
+    a = MagicCharacter(strength=25, dexterity=10, constitution=12, intelligence=9, wisdom=18, charisma=11)
+    b = MagicCharacter(strength=30, dexterity=6, constitution=17, intelligence=8, wisdom=16, charisma=15)
+    print("\nA: ")
+    a.show_stats()
+    a.show_hitpoint_with_mana()
+    print("\nB: ")
+    b.show_stats()
+    b.show_hitpoint_with_mana()
+
+    print("\nA attack B with magic_missle!")
+    b.defense(a.magic_missle())
+    b.show_hitpoint_with_mana()
+
+    print("\nB attack A with fireball!")
+    a.defense(b.fireball())
+    a.show_hitpoint_with_mana()
+
+    print("\nB healed itself 4 mana!")
+    b.heal_mana(4)
+    b.show_hitpoint_with_mana()
