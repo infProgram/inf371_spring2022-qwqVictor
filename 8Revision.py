@@ -30,7 +30,11 @@ class Character:
         if random.randint(1, 20) < self.dexterity:
             pass
         else:
-            self.hitpoints -= attacked
+            if self.hitpoints < attacked:
+                self.hitpoints = 0
+            else:
+                self.hitpoints -= attacked
+
 
     def heal(self, healed):
         self.hitpoints += healed
