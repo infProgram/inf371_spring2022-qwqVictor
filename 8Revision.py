@@ -15,6 +15,7 @@ class Character:
         self.wisdom       = wisdom
         self.charisma     = charisma
         self.hitpoints    = constitution * 30 + 50
+        self.maxhitpoints = self.hitpoints
 
     def show_stats(self):
         for stat in self.__stats__:
@@ -37,7 +38,7 @@ class Character:
 
 
     def heal(self, healed):
-        self.hitpoints += healed
+        self.hitpoints = min(self.maxhitpoints, self.hitpoints + healed)
 
 if __name__ == "__main__":
     a = Character(strength=25, dexterity=10, constitution=12, intelligence=9, wisdom=18, charisma=11)
