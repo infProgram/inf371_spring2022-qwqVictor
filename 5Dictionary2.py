@@ -10,3 +10,6 @@ dictionary = {}
 
 for key in keys:
     dictionary[key] = random.randint(1, 20)
+
+for key in dictionary:
+    print("%s: %s" % (key, str(dictionary[key])))
