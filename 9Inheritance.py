@@ -8,9 +8,9 @@ Character = __import__("8Revision").Character
 
 class MagicCharacter(Character):
 
-    def __init__(self):
-        super()
-        self.mana = self.intelligence * 30 + 50
+    def __init__(self, strength, dexterity, constitution, intelligence, wisdom, charisma):
+        super().__init__(strength, dexterity, constitution, intelligence, wisdom, charisma)
+        self.mana = intelligence * 30 + 50
 
     def show_hitpoint_with_mana(self):
         self.show_hitpoint()
