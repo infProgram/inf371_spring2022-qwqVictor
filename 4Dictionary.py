@@ -13,3 +13,13 @@ characterA = {
 
 for key in characterA:
     print("'%s' => %s" % (key, str(characterA[key])))
+
+if "strength" in characterA:
+    print("Found %s with value %s" % ("strength", str(characterA["strength"])))
+else:
+    print("%s not found." % "strength")
+
+if "speed" in characterA:
+    print("Found %s with value %s" % ("speed", str(characterA["speed"])))
+else:
+    print("%s not found." % "speed")
