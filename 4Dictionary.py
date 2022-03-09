@@ -11,4 +11,5 @@ characterA = {
     "charisma": 11
 }
 
-print(characterA)
+for key in characterA:
+    print("'%s' => %s" % (key, str(characterA[key])))
