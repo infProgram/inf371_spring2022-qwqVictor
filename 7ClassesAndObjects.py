@@ -34,3 +34,21 @@ class Character:
 
     def heal(self, healed):
         self.hitpoints += healed
+
+if __name__ == "__main__":
+    a = Character(strength=25, dexterity=10, constitution=12, intelligence=9, wisdom=18, charisma=11)
+    b = Character(strength=30, dexterity=6, constitution=17, intelligence=8, wisdom=16, charisma=15)
+    print("\nA: ")
+    a.show_stats()
+    a.show_hitpoint()
+    print("\nB: ")
+    b.show_stats()
+    b.show_hitpoint()
+
+    print("\nA attack B!")
+    b.defense(a.attack())
+    b.show_hitpoint()
+
+    print("\nB healed itself 20 HP!")
+    b.heal(20)
+    b.show_hitpoint()
