@@ -24,7 +24,7 @@ class Character:
         print("My hitpoint is %s!" % (str(self.hitpoints)))
     
     def attack(self):
-        return random.randint(1, self.strength)
+        return random.randint(int(0.4 * self.strength), self.strength)
     
     def defense(self, attacked):
         if random.randint(1, 20) < self.dexterity:
