@@ -7,4 +7,6 @@ import random
 l = []
 
 for i in range(0, 9+1):
-    print(i)
+    l.append(random.randint(0, 2**31-1))
+
+print(l)
