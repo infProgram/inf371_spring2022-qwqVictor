@@ -16,20 +16,19 @@ class Ball:
         self.speed = [x for x in speed]
         self.radius = radius
         self.window_size = window_size
-        self.ball = pygame.Surface((radius * 2, radius * 2))
+        self.ball = pygame.Surface((radius * 2, radius * 2), flags=pygame.SRCALPHA)
         self.ball_rect = pygame.draw.circle(self.ball, color, (radius, radius), radius).move((random.randint(radius, window_size[0] - radius), random.randint(radius, window_size[1] - radius)))
 
     def move(self, direction: tuple[int]):
-        print((self.ball_rect.x, self.ball_rect.y))
         self.ball_rect = self.ball_rect.move(*map(lambda x, y: x * y, self.speed, direction))
         if self.ball_rect.x <= 0:
             self.ball_rect.x = 0
-        elif self.ball_rect.x >= self.window_size[0]:
-            self.ball_rect.x = self.window_size[0]
+        elif self.ball_rect.x >= self.window_size[0] - self.radius * 2:
+            self.ball_rect.x = self.window_size[0] - self.radius * 2
         if self.ball_rect.y <= 0:
             self.ball_rect.y = 0
-        elif self.ball_rect.y >= self.window_size[1]:
-            self.ball_rect.y = self.window_size[1]
+        elif self.ball_rect.y >= self.window_size[1] - self.radius * 2:
+            self.ball_rect.y = self.window_size[1] - self.radius * 2
     
     def blit(self, screen: pygame.Surface):
         screen.blit(self.ball, self.ball_rect)
