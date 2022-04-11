@@ -6,8 +6,11 @@ pygame.init()
 window_size = (640, 480)
 screen = pygame.display.set_mode(window_size)
 speed = [10, 10]
-ball = pygame.Surface((50, 50))
-ball_rect = pygame.draw.circle(ball, (0xfb, 0x72, 0x99), (25, 25), 25).move((random.randint(25, window_size[0] - 25), random.randint(25, window_size[1] - 25)))
+radius = 25
+background_color = (0, 0, 0)
+ball_color = (0xfb, 0x72, 0x99)
+ball = pygame.Surface((radius * 2, radius * 2))
+ball_rect = pygame.draw.circle(ball, ball_color, (radius, radius), radius).move((random.randint(radius, window_size[0] - radius), random.randint(radius, window_size[1] - radius)))
 
 running = True
 while running:
@@ -22,7 +25,7 @@ while running:
             speed[0] = -speed[0]
         if ball_rect.top <= 0 or ball_rect.bottom >= window_size[1]:
             speed[1] = -speed[1]
-        screen.fill((0, 0, 0))
+        screen.fill((background_color))
         screen.blit(ball, ball_rect)
         pygame.display.flip()
 
