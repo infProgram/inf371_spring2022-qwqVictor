@@ -25,13 +25,13 @@ class Item:
 
     def move(self):
         self.rect = self.rect.move(*self.speed)
-        if self.rect.left <= 0 or self.rect.right >= self.window_width:
+        if self.rect.x <= 0 or self.rect.x >= self.window_width:
             self.speed[0] = -self.speed[0]
-        if self.rect.top <= 0 or self.rect.bottom >= self.window_height:
+        if self.rect.y <= 0 or self.rect.y >= self.window_height:
             self.speed[1] = -self.speed[1]
 
     def randomize_position(self):
-        self.rect.move_ip((random.randint(0, self.window_width), random.randint(0, self.window_height)))
+        self.rect.x, self.rect.y = ((random.randint(0, self.window_width), random.randint(0, self.window_height)))
 
 class DrawCircleItem(Item):
     def __init__(self, color: tuple[int], radius: int, window_size: tuple[int], speed: tuple[int], position: "tuple[int]" = None):

@@ -20,9 +20,9 @@ class Ball:
 
     def move(self):
         self.ball_rect = self.ball_rect.move(*self.speed)
-        if self.ball_rect.left <= 0 or self.ball_rect.right >= self.window_size[0]:
+        if self.ball_rect.x <= 0 or self.ball_rect.x >= self.window_size[0]:
             self.speed[0] = -self.speed[0]
-        if self.ball_rect.top <= 0 or self.ball_rect.bottom >= self.window_size[1]:
+        if self.ball_rect.y <= 0 or self.ball_rect.y >= self.window_size[1]:
             self.speed[1] = -self.speed[1]
     
     def blit(self, screen: pygame.Surface):
