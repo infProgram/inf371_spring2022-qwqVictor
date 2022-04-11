@@ -1,14 +1,14 @@
 import sys
+from time import sleep
 import pygame
 import random
 
 pygame.init()
 window_size = (640, 480)
 screen = pygame.display.set_mode(window_size)
-speed = (10, 10)
-radius = 25
 background_color = (0, 0, 0)
-ball_color = (0xfb, 0x72, 0x99)
+pink_color = (0xfb, 0x72, 0x99)
+blue_color = (59, 181, 243)
 
 class Ball:
 
@@ -28,7 +28,8 @@ class Ball:
     def blit(self, screen: pygame.Surface):
         screen.blit(self.ball, self.ball_rect)
 
-pinkBall = Ball(ball_color, radius, window_size, speed)
+pinkBall = Ball(color=pink_color, radius=25, window_size=window_size, speed=(10, 10))
+blueBall = Ball(color=blue_color, radius=20, window_size=window_size, speed=(12, 12))
 
 running = True
 while running:
@@ -41,6 +42,9 @@ while running:
         screen.fill((background_color))
         pinkBall.move()
         pinkBall.blit(screen)
+        blueBall.move()
+        blueBall.blit(screen)
         pygame.display.flip()
+        sleep(1/120)
 
 pygame.quit()
