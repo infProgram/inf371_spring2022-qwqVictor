@@ -32,3 +32,15 @@ class Item:
 
     def randomize_position(self):
         self.rect.move_ip((random.randint(0, self.window_width), random.randint(0, self.window_height)))
+
+class DrawCircleItem(Item):
+    def __init__(self, color: tuple[int], radius: int, window_size: tuple[int], speed: tuple[int], position: "tuple[int]" = None):
+        self.picture = pygame.Surface((radius * 2, radius * 2))
+        self.rect = pygame.draw.circle(self.picture, color, (radius, radius), radius)
+        self.rect = self.picture.get_rect()
+        self.window_width, self.window_height = window_size
+        self.speed = list(speed)
+        if position:
+            self.rect.move_ip(position)
+        else:
+            self.randomize_position()
