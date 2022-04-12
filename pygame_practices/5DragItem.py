@@ -61,7 +61,17 @@ while running:
             print("user exit", file=sys.stderr)
             running = False
             break
-                
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if pygame.mouse.get_pressed()[0]:
+                if blue_ball.collidepoint(pygame.mouse.get_pos()):
+                    dragging_ball = blue_ball
+                elif pink_ball.collidepoint(pygame.mouse.get_pos()):
+                    dragging_ball = pink_ball
+        if event.type == pygame.MOUSEMOTION:
+            if dragging_ball:
+                dragging_ball.move_to(pygame.mouse.get_pos())
+        if event.type == pygame.MOUSEBUTTONUP:
+            dragging_ball = None
     if running:
         screen.fill((background_color))
         pink_ball.blit(screen)
