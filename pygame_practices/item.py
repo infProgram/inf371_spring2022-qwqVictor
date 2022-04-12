@@ -30,6 +30,10 @@ class Item:
         if self.rect.y <= 0 or self.rect.y >= self.window_height:
             self.speed[1] = -self.speed[1]
 
+    def collide(self, item: "Item"):
+        if self.rect.colliderect(item.rect):
+            self.speed = [-speed + random.randint(-2, 2) for speed in self.speed]
+
     def randomize_position(self):
         self.rect.x, self.rect.y = ((random.randint(0, self.window_width), random.randint(0, self.window_height)))
 
