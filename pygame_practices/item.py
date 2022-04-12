@@ -25,9 +25,10 @@ class Item:
 
     def move(self):
         self.rect = self.rect.move(*self.speed)
-        if self.rect.x <= 0 or self.rect.x >= self.window_width:
+        picture_size = self.picture.get_size()
+        if self.rect.x <= 0 or self.rect.x >= self.window_width - picture_size[0]:
             self.speed[0] = -self.speed[0]
-        if self.rect.y <= 0 or self.rect.y >= self.window_height:
+        if self.rect.y <= 0 or self.rect.y >= self.window_height - picture_size[1]:
             self.speed[1] = -self.speed[1]
 
     def collide(self, item: "Item"):
