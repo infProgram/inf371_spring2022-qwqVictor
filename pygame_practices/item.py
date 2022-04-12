@@ -31,9 +31,9 @@ class Item:
         if self.rect.y <= 0 or self.rect.y >= self.window_height - picture_size[1]:
             self.speed[1] = -self.speed[1]
 
-    def collide(self, item: "Item"):
+    def collide(self, item: "Item", speed_offset_range: tuple[int] = (-2, 2)):
         if self.rect.colliderect(item.rect):
-            self.speed = [-speed + random.randint(-2, 2) for speed in self.speed]
+            self.speed = [-speed + random.randint(*speed_offset_range) for speed in self.speed]
 
     def randomize_position(self):
         self.rect.x, self.rect.y = ((random.randint(0, self.window_width), random.randint(0, self.window_height)))

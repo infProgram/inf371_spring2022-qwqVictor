@@ -21,10 +21,10 @@ while running:
     if running:
         screen.fill((background_color))
         shark_ball.move()
-        shark_ball.collide(spider_ball)
+        shark_ball.collide(spider_ball, (-1, 1))
         shark_ball.blit(screen)
         spider_ball.move()
-        spider_ball.collide(shark_ball)
+        spider_ball.collide(shark_ball, (-1, 1))
         spider_ball.blit(screen)
         pygame.display.flip()
         sleep(1/120)
