@@ -67,9 +67,9 @@ def heading(window: pygame.Surface, score: int, hp: int, combo: int):
 
     breakout_pos = heading_text("BREAKOUT", purple, "(window_size[0] - rect.width * 1.5) / 2")
     heading_text("by Victor", pink, str(breakout_pos[0] + breakout_pos[2]), font_size=16, y_pos_expr="(%d-rect.height)" % (breakout_pos[1] + breakout_pos[3]))
-    score_pos = heading_text(str(score), cyan, "window_size[0] - rect.width")
+    score_pos = heading_text(str(score), cyan, "window_size[0] - rect.width", font_family="UniVGA16.ttf")
     if combo > 2:
-        combo_pos = heading_text("(Combo x%d) " % combo, yellow, "%d - rect.width" % (score_pos[0]))
+        combo_pos = heading_text("(Combo x%d) " % combo, yellow, "%d - rect.width" % (score_pos[0]), font_family="Le_Murmure-Regular.ttf")
 
     hp_sprites = pygame.sprite.Group()
     for i in range(0, max_hp):
