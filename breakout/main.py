@@ -5,11 +5,13 @@ import pygame
 from Ball import Ball
 from Bat import Bat
 from Brick import Brick
+from HPHeart import HPHeartFulfilled, HPHeartLost
 
 pygame.init()
 pygame.key.set_repeat(1, 5)
 window_size = (640, 480)
 window = pygame.display.set_mode(window_size)
+clock = pygame.time.Clock()
 pygame.display.set_caption("Breakout! by Victor")
 background_color = (0, 0, 0)
 white = (0xff, 0xff, 0xff)
@@ -17,9 +19,9 @@ pink = (0xfb, 0x72, 0x99)
 purple = (0xff, 0, 0xff)
 cyan = (0, 0xff, 0xff)
 heading_top = 30
-clock = pygame.time.Clock()
+max_hp = 3
 
-def heading(window: pygame.Surface, score: int):
+def heading(window: pygame.Surface, score: int, hp: int):
 
     pygame.draw.line(window, white, (0, heading_top), (window_size[0], heading_top))
 
@@ -35,6 +37,14 @@ def heading(window: pygame.Surface, score: int):
     heading_text("by Victor", pink, str(breakout_pos[0] + breakout_pos[2]), font_size=16, y_pos_expr="(%d-rect.height)" % (breakout_pos[1] + breakout_pos[3]))
     heading_text(str(score), cyan, "window_size[0] - rect.width")
 
+    hp_sprites = pygame.sprite.Group()
+    for i in range(1, max_hp + 1):
+        if i <= hp:
+            hp_sprites.add(HPHeartFulfilled((i, 0)))
+        else:
+            hp_sprites.add(HPHeartLost((i, 0)))
+    hp_sprites.draw(window)
+
 def main():
     all_sprites = pygame.sprite.Group()
     bouncable_sprites = pygame.sprite.Group()
@@ -42,6 +52,7 @@ def main():
     ball = Ball(window, speed_x=2, speed_y=-2, spawn=(window.get_width() / 2, bat.rect.height), head_y=30)
     all_sprites.add(bat, ball)
     bouncable_sprites.add(bat)
+    hp = 3
     score = 0
     bonus = 1
 
@@ -79,7 +90,7 @@ def main():
                     bonus = 1
 
             window.fill((background_color))
-            heading(window, score)
+            heading(window, score, hp)
             all_sprites.draw(window)
             all_sprites.update()
             pygame.display.flip()
