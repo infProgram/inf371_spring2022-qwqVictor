@@ -54,6 +54,7 @@ def main():
     hp = 3
     score = 0
     bonus = 1
+    won = False
 
     for i in range(1, 12+1):
         for j in range(1, 4+1):
@@ -71,9 +72,14 @@ def main():
                 break
             bat.event_handle(event)
         if running:
+            if won:
+                print('Congratulations!',"Congratulations, you won!\nYour score: %d" % (score))
+                running = False
+                break
             if ball.rect.y > window_size[1]:
                 hp -= 1
                 if hp < 0:
+                    print('Sorry!',"Oh, you lose.\nTake another chance!\nYour score: %d" % (score))
                     running = False
                     break
                 else:
@@ -92,6 +98,9 @@ def main():
                         bonus += 1
                         all_sprites.remove(brick)
                         bouncable_sprites.remove(brick)
+                    if len(bouncable_sprites.sprites()) == 1:
+                        won = True
+                        score += hp * 360
                 else:
                     bonus = 1
 
