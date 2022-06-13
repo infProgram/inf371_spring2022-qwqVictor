@@ -1,27 +1,29 @@
 import pygame
+import random
 from ImageSprite import ImageSprite
 
 class Ball(ImageSprite):
     window_width: int
     window_height: int
     spawn_pos: tuple[int]
-    spawn_speed: tuple[int]
-    speed_x: int
-    speed_y: int
+    spawn_speed: float
+    speed_x: float
+    speed_y: float
     head_y: int
-    def __init__(self, window: pygame.Surface, speed_x: int, speed_y: int, spawn_pos: tuple[int], head_y: int=0):
+    def __init__(self, window: pygame.Surface, speed: float, spawn_pos: tuple[int], head_y: int=0):
         ImageSprite.__init__(self, "ball.png")
         self.window_width = window.get_width()
         self.window_height = window.get_height()
         self.spawn_pos = spawn_pos
-        self.spawn_speed = (speed_x, speed_y)
+        self.spawn_speed = speed
         self.head_y = head_y
         self.respawn()
 
     def respawn(self):
         self.rect.bottom = self.window_height - self.spawn_pos[1]
         self.rect.left = self.spawn_pos[0]
-        self.speed_x, self.speed_y = self.spawn_speed
+        self.speed_x = random.random() * self.spawn_speed
+        self.speed_y = -(self.spawn_speed ** 2 - self.speed_x ** 2) ** (1/2)
 
     def update(self):
         self.rect = self.rect.move(self.speed_x, self.speed_y)
