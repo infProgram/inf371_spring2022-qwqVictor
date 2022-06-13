@@ -99,7 +99,7 @@ def game():
             bat.event_handle(event)
         if running:
             if won:
-                messagebox('Congratulations!',"Congratulations, you won!\nYour score: %d\n" % (score))
+                messagebox('Congratulations!',"Congratulations, you won!\nYour score: %d\nYour MAX COMBO: %d" % (score, max_combo))
                 running = False
                 break
             if ball.rect.y > window_size[1]:
@@ -107,7 +107,7 @@ def game():
                 combo = 1
                 combo_add_hp = True
                 if hp < 0:
-                    messagebox('Sorry!',"Oh, you lose.\nTake another chance!\nYour score: %d" % (score))
+                    messagebox('Sorry!',"Oh, you lose.\nTake another chance!\nYour score: %d\nYour MAX COMBO: %d" % (score, max_combo))
                     running = False
                     break
                 else:
