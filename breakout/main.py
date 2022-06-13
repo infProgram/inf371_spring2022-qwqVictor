@@ -22,6 +22,7 @@ purple = (0xff, 0, 0xff)
 cyan = (0, 0xff, 0xff)
 heading_top = 30
 max_hp = 3
+global_quit = False
 
 def messagebox(title, content):
     msgBox = QMessageBox()
@@ -30,6 +31,15 @@ def messagebox(title, content):
     msgBox.setWindowTitle(title)
     msgBox.setStandardButtons(QMessageBox.Ok)
     msgBox.exec()
+
+def dialog(title, content):
+    msgBox = QMessageBox()
+    msgBox.setIcon(QMessageBox.Question)
+    msgBox.setText(content)
+    msgBox.setWindowTitle(title)
+    msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+    returnValue = msgBox.exec()
+    return returnValue == QMessageBox.Ok
 
 def heading(window: pygame.Surface, score: int, hp: int, bonus: int):
 
@@ -57,7 +67,8 @@ def heading(window: pygame.Surface, score: int, hp: int, bonus: int):
             hp_sprites.add(HPHeartLost((i, 0)))
     hp_sprites.draw(window)
 
-def main():
+def game():
+    global global_quit
     all_sprites = pygame.sprite.Group()
     bouncable_sprites = pygame.sprite.Group()
     bat = Bat(window, speed=2)
@@ -76,13 +87,12 @@ def main():
             all_sprites.add(brick)
             bouncable_sprites.add(brick)
 
-    print("Bootstrapped.")
-
     running = True
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+                global_quit = True
                 break
             bat.event_handle(event)
         if running:
@@ -133,6 +143,14 @@ def main():
             all_sprites.draw(window)
             all_sprites.update()
             pygame.display.flip()
+def main():
+    global global_quit
+    game()
+    while not global_quit:
+        if dialog("Another chance?", "Do you want to play again?"):
+            game()
+        else:
+            break
     pygame.quit()
 
 if __name__ == "__main__":
