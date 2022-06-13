@@ -130,9 +130,9 @@ def game():
             if bounce:
                 hit_rect = bounce[0].rect
                 if hit_rect.left > ball.rect.left or ball.rect.right < hit_rect.right:
-                    ball.speed_y *= -1
+                    ball.speed_y *= -1 * random.randint(80, 120) / 100
                 else:
-                    ball.speed_x *= -1
+                    ball.speed_x *= -1 * random.randint(80, 120) / 100
 
                 if not pygame.sprite.collide_rect(ball, bat):
                     for brick in bounce:
