@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import sys
 import pygame
+import random
 from PyQt5.QtWidgets import QMessageBox, QApplication
 from Ball import Ball
 from Bat import Bat
@@ -140,6 +141,7 @@ def game():
                                 combo_add_hp = False
                         all_sprites.remove(brick)
                         bouncable_sprites.remove(brick)
+                        random.choice(collide_se_list).play(0)
                     if len(bouncable_sprites.sprites()) == 1:
                         won = True
                         score += hp * 360
