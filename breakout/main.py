@@ -14,8 +14,8 @@ clock = pygame.time.Clock()
 def main():
     all_sprites = pygame.sprite.Group()
     bouncable_sprites = pygame.sprite.Group()
-    bat = Bat(window)
-    ball = Ball(window, speed_x=4, speed_y=-4, spawn=(window.get_width() / 2, bat.rect.height))
+    bat = Bat(window, speed=30)
+    ball = Ball(window, speed_x=2, speed_y=-2, spawn=(window.get_width() / 2, bat.rect.height))
     all_sprites.add(bat, ball)
     bouncable_sprites.add(bat)
 
@@ -33,6 +33,7 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
                 break
+            bat.event_handle(event)
         if running:
             window.fill((background_color))
             all_sprites.draw(window)
