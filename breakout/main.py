@@ -11,12 +11,28 @@ pygame.key.set_repeat(1, 5)
 window_size = (640, 480)
 window = pygame.display.set_mode(window_size)
 background_color = (0, 0, 0)
+white = (0xff, 0xff, 0xff)
+pink = (0xfb, 0x72, 0x99)
+purple = (0xff, 0, 0xff)
+cyan = (0, 0xff, 0xff)
 heading_top = 30
 clock = pygame.time.Clock()
 
-def heading(window: pygame.Surface):
+def heading(window: pygame.Surface, score: int):
 
-    pygame.draw.line(window, (0xfb, 0x72, 0x99), (0, heading_top), (window_size[0], heading_top))
+    pygame.draw.line(window, white, (0, heading_top), (window_size[0], heading_top))
+
+    def heading_text(content: str, color: tuple[int], x_pos_expr: str, y_pos_expr: str="(heading_top - rect.height) / 2", font_size: int=28, font_family: str=None):
+        text = pygame.font.Font(font_family,font_size).render(content, True, color)
+        rect = text.get_rect()
+        rect.left = eval(x_pos_expr)
+        rect.top = eval(y_pos_expr)
+        window.blit(text, rect)
+        return (rect.x, rect.y, rect.width, rect.height)
+
+    breakout_pos = heading_text("BREAKOUT", purple, "(window_size[0] - rect.width * 1.5) / 2")
+    heading_text("by Victor", pink, str(breakout_pos[0] + breakout_pos[2]), font_size=16, y_pos_expr="(%d-rect.height)" % (breakout_pos[1] + breakout_pos[3]))
+    heading_text(str(score), cyan, "window_size[0] - rect.width")
 
 def main():
     all_sprites = pygame.sprite.Group()
@@ -26,6 +42,7 @@ def main():
     all_sprites.add(bat, ball)
     bouncable_sprites.add(bat)
     score = 0
+    bonus = 1
 
     for i in range(1, 12+1):
         for j in range(1, 4+1):
@@ -52,13 +69,16 @@ def main():
                     ball.speed_x *= -1
 
                 if not pygame.sprite.collide_rect(ball, bat):
-                    score += len(bounce)
                     for brick in bounce:
+                        score += bonus
+                        bonus += 1
                         all_sprites.remove(brick)
                         bouncable_sprites.remove(brick)
+                else:
+                    bonus = 1
 
             window.fill((background_color))
-            heading(window)
+            heading(window, score)
             all_sprites.draw(window)
             all_sprites.update()
             pygame.display.flip()
