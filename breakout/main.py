@@ -42,7 +42,7 @@ def dialog(title: str, content: str):
     returnValue = msgBox.exec()
     return returnValue == QMessageBox.Ok
 
-def heading(window: pygame.Surface, score: int, hp: int, bonus: int):
+def heading(window: pygame.Surface, score: int, hp: int, combo: int):
 
     pygame.draw.line(window, white, (0, heading_top), (window_size[0], heading_top))
 
@@ -57,8 +57,8 @@ def heading(window: pygame.Surface, score: int, hp: int, bonus: int):
     breakout_pos = heading_text("BREAKOUT", purple, "(window_size[0] - rect.width * 1.5) / 2")
     heading_text("by Victor", pink, str(breakout_pos[0] + breakout_pos[2]), font_size=16, y_pos_expr="(%d-rect.height)" % (breakout_pos[1] + breakout_pos[3]))
     score_pos = heading_text(str(score), cyan, "window_size[0] - rect.width")
-    if bonus > 2:
-        bonus_pos = heading_text("(Bonus x%d) " % bonus, yellow, "%d - rect.width" % (score_pos[0]))
+    if combo > 2:
+        combo_pos = heading_text("(Combo x%d) " % combo, yellow, "%d - rect.width" % (score_pos[0]))
 
     hp_sprites = pygame.sprite.Group()
     for i in range(0, max_hp):
@@ -78,8 +78,9 @@ def game():
     bouncable_sprites.add(bat)
     hp = 3
     score = 0
-    bonus = 1
-    bonus_add_hp = True
+    combo = 1
+    combo_add_hp = True
+    max_combo = 0
     won = False
 
     for i in range(1, 12+1):
@@ -98,13 +99,13 @@ def game():
             bat.event_handle(event)
         if running:
             if won:
-                messagebox('Congratulations!',"Congratulations, you won!\nYour score: %d" % (score))
+                messagebox('Congratulations!',"Congratulations, you won!\nYour score: %d\n" % (score))
                 running = False
                 break
             if ball.rect.y > window_size[1]:
                 hp -= 1
-                bonus = 1
-                bonus_add_hp = True
+                combo = 1
+                combo_add_hp = True
                 if hp < 0:
                     messagebox('Sorry!',"Oh, you lose.\nTake another chance!\nYour score: %d" % (score))
                     running = False
@@ -121,26 +122,27 @@ def game():
 
                 if not pygame.sprite.collide_rect(ball, bat):
                     for brick in bounce:
-                        score += bonus
-                        bonus += 1
-                        if bonus > 7:
-                            if bonus_add_hp:
+                        score += combo
+                        combo += 1
+                        max_combo = max(max_combo, combo)
+                        if combo > 7:
+                            if combo_add_hp:
                                 if hp == max_hp:
                                     score += 60
                                 else:
                                     hp += 1
-                                bonus_add_hp = False
+                                combo_add_hp = False
                         all_sprites.remove(brick)
                         bouncable_sprites.remove(brick)
                     if len(bouncable_sprites.sprites()) == 1:
                         won = True
                         score += hp * 360
                 else:
-                    bonus = 1
-                    bonus_add_hp = True
+                    combo = 1
+                    combo_add_hp = True
 
             window.fill((background_color))
-            heading(window, score, hp, bonus)
+            heading(window, score, hp, combo)
             all_sprites.draw(window)
             all_sprites.update()
             pygame.display.flip()
