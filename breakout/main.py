@@ -47,6 +47,9 @@ def main():
 
                 if not pygame.sprite.collide_rect(ball, bat):
                     score += len(bounce)
+                    for brick in bounce:
+                        all_sprites.remove(brick)
+                        bouncable_sprites.remove(brick)
 
             window.fill((background_color))
             all_sprites.draw(window)
