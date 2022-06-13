@@ -1,8 +1,10 @@
 import pygame
+import os
+
 class ImageSprite(pygame.sprite.Sprite):
     def __init__(self, image_file: str):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load('assets/' + image_file).convert()
+        self.image = pygame.image.load(os.path.join(os.path.dirname(__file__), 'assets', image_file)).convert()
         self.rect = self.image.get_rect()
 
 class MatricedImageSprite(ImageSprite):
