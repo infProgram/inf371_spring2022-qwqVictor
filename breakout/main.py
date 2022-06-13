@@ -106,6 +106,7 @@ def game():
             bat.event_handle(event)
         if running:
             if won:
+                win_se.play(0)
                 messagebox('Congratulations!',"Congratulations, you won!\nYour score: %d\nYour MAX COMBO: %d" % (score, max_combo))
                 running = False
                 break
@@ -113,7 +114,9 @@ def game():
                 hp -= 1
                 combo = 1
                 combo_add_hp = True
+                drop_se.play(0)
                 if hp < 0:
+                    lose_se.play(0)
                     messagebox('Sorry!',"Oh, you lose.\nTake another chance!\nYour score: %d\nYour MAX COMBO: %d" % (score, max_combo))
                     running = False
                     break
