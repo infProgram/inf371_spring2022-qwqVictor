@@ -38,6 +38,7 @@ def dialog(title, content):
     msgBox.setText(content)
     msgBox.setWindowTitle(title)
     msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+    msgBox.setDefaultButton(QMessageBox.Ok)
     returnValue = msgBox.exec()
     return returnValue == QMessageBox.Ok
 
