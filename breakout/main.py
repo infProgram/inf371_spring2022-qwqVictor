@@ -166,7 +166,7 @@ def main():
     global global_quit
     game()
     while not global_quit:
-        if dialog("Another chance?", "Do you want to play again?"):
+        if dialog("Another chance?", "Do you want another round?"):
             game()
         else:
             break
