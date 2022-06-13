@@ -15,12 +15,13 @@ pygame.display.set_caption("Breakout! by Victor")
 background_color = (0, 0, 0)
 white = (0xff, 0xff, 0xff)
 pink = (0xfb, 0x72, 0x99)
+yellow = (0xff, 0xff, 0)
 purple = (0xff, 0, 0xff)
 cyan = (0, 0xff, 0xff)
 heading_top = 30
 max_hp = 3
 
-def heading(window: pygame.Surface, score: int, hp: int):
+def heading(window: pygame.Surface, score: int, hp: int, bonus: int):
 
     pygame.draw.line(window, white, (0, heading_top), (window_size[0], heading_top))
 
@@ -34,7 +35,9 @@ def heading(window: pygame.Surface, score: int, hp: int):
 
     breakout_pos = heading_text("BREAKOUT", purple, "(window_size[0] - rect.width * 1.5) / 2")
     heading_text("by Victor", pink, str(breakout_pos[0] + breakout_pos[2]), font_size=16, y_pos_expr="(%d-rect.height)" % (breakout_pos[1] + breakout_pos[3]))
-    heading_text(str(score), cyan, "window_size[0] - rect.width")
+    score_pos = heading_text(str(score), cyan, "window_size[0] - rect.width")
+    if bonus > 2:
+        bonus_pos = heading_text("(Bonus x%d) " % bonus, yellow, "%d - rect.width" % (score_pos[0]))
 
     hp_sprites = pygame.sprite.Group()
     for i in range(0, max_hp):
@@ -114,7 +117,7 @@ def main():
                     bonus_add_hp = True
 
             window.fill((background_color))
-            heading(window, score, hp)
+            heading(window, score, hp, bonus)
             all_sprites.draw(window)
             all_sprites.update()
             pygame.display.flip()
