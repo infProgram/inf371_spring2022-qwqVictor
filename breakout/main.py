@@ -6,7 +6,7 @@ from Bat import Bat
 from Brick import Brick
 
 pygame.init()
-pygame.key.set_repeat(200, 30)
+pygame.key.set_repeat(1, 5)
 window_size = (640, 480)
 window = pygame.display.set_mode(window_size)
 background_color = (0, 0, 0)
@@ -15,7 +15,7 @@ clock = pygame.time.Clock()
 def main():
     all_sprites = pygame.sprite.Group()
     bouncable_sprites = pygame.sprite.Group()
-    bat = Bat(window, speed=30)
+    bat = Bat(window, speed=2)
     ball = Ball(window, speed_x=2, speed_y=-2, spawn=(window.get_width() / 2, bat.rect.height))
     all_sprites.add(bat, ball)
     bouncable_sprites.add(bat)
