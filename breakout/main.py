@@ -6,6 +6,7 @@ from Ball import Ball
 from Bat import Bat
 from Brick import Brick
 from HPHeart import HPHeartFulfilled, HPHeartLost
+from SoundEffect import SoundEffect
 
 pygame.init()
 pygame.key.set_repeat(1, 5)
@@ -23,6 +24,11 @@ cyan = (0, 0xff, 0xff)
 heading_top = 30
 max_hp = 3
 global_quit = False
+
+collide_se_list = tuple(SoundEffect("collide_%d.wav" % i) for i in range(1, 6+1))
+win_se = SoundEffect("win.wav")
+lose_se = SoundEffect("lose.wav")
+drop_se = SoundEffect("drop.wav")
 
 def messagebox(title: str, content: str):
     msgBox = QMessageBox()
