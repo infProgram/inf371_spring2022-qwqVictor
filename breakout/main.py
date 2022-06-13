@@ -65,8 +65,8 @@ def heading(window: pygame.Surface, score: int, hp: int, combo: int):
         window.blit(text, rect)
         return (rect.x, rect.y, rect.width, rect.height)
 
-    breakout_pos = heading_text("BREAKOUT", purple, "(window_size[0] - rect.width * 1.5) / 2")
-    heading_text("by Victor", pink, str(breakout_pos[0] + breakout_pos[2]), font_size=16, y_pos_expr="(%d-rect.height)" % (breakout_pos[1] + breakout_pos[3]))
+    breakout_pos = heading_text("BREAKOUT!", purple, "(window_size[0] - rect.width * 1.5) / 2", font_family="Basteleur-Bold.ttf")
+    heading_text("by Victor", pink, str(breakout_pos[0] + breakout_pos[2]), font_size=12, y_pos_expr="(%d-rect.height)" % (breakout_pos[1] + breakout_pos[3]), font_family="Minipax-Regular.ttf")
     score_pos = heading_text(str(score), cyan, "window_size[0] - rect.width", font_family="UniVGA16.ttf")
     if combo > 2:
         combo_pos = heading_text("(Combo x%d) " % combo, yellow, "%d - rect.width" % (score_pos[0]), font_family="Le_Murmure-Regular.ttf")
