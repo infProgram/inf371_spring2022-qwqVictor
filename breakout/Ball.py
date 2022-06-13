@@ -1,5 +1,5 @@
 import pygame
-from breakout.ImageSprite import ImageSprite
+from ImageSprite import ImageSprite
 
 class Ball(ImageSprite):
     window_width: int
@@ -7,7 +7,7 @@ class Ball(ImageSprite):
     speed_x: int
     speed_y: int
     def __init__(self, window: pygame.Surface, speed_x: int, speed_y: int, spawn: tuple[int]):
-        ImageSprite(self, "ball.png")
+        ImageSprite.__init__(self, "ball.png")
         self.window_width = window.get_width()
         self.window_height = window.get_height()
         self.rect.bottom = self.window_height - spawn[1]

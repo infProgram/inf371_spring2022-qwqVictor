@@ -1,12 +1,12 @@
 import pygame
-from breakout.ImageSprite import ImageSprite
+from ImageSprite import ImageSprite
 
 class Bat(ImageSprite):
     speed: int
     window_width: int
     window_height: int
     def __init__(self, window: pygame.Surface, speed: int=4):
-        ImageSprite("bat.png")
+        ImageSprite.__init__(self, "bat.png")
         self.speed = speed
         self.window_width = window.get_width()
         self.window_height = window.get_height()
