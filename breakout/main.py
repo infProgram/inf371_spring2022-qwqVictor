@@ -54,6 +54,7 @@ def main():
     hp = 3
     score = 0
     bonus = 1
+    bonus_add_hp = True
     won = False
 
     for i in range(1, 12+1):
@@ -96,6 +97,13 @@ def main():
                     for brick in bounce:
                         score += bonus
                         bonus += 1
+                        if bonus > 7:
+                            if bonus_add_hp:
+                                if hp == max_hp:
+                                    score += 60
+                                else:
+                                    hp += 1
+                                bonus_add_hp = False
                         all_sprites.remove(brick)
                         bouncable_sprites.remove(brick)
                     if len(bouncable_sprites.sprites()) == 1:
@@ -103,6 +111,7 @@ def main():
                         score += hp * 360
                 else:
                     bonus = 1
+                    bonus_add_hp = True
 
             window.fill((background_color))
             heading(window, score, hp)
