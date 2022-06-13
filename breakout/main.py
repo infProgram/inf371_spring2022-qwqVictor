@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import os
 import sys
 import pygame
 import random
@@ -55,6 +56,8 @@ def heading(window: pygame.Surface, score: int, hp: int, combo: int):
     pygame.draw.line(window, white, (0, heading_top), (window_size[0], heading_top))
 
     def heading_text(content: str, color: tuple[int], x_pos_expr: str, y_pos_expr: str="(heading_top - rect.height) / 2", font_size: int=28, font_family: str=None):
+        if font_family:
+            font_family = os.path.join(os.path.dirname(__file__), 'assets', font_family)
         text = pygame.font.Font(font_family,font_size).render(content, True, color)
         rect = text.get_rect()
         rect.left = eval(x_pos_expr)
