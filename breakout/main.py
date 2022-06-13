@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import sys
 import pygame
+from PyQt5.QtWidgets import QMessageBox, QApplication
 from Ball import Ball
 from Bat import Bat
 from Brick import Brick
@@ -8,6 +9,7 @@ from HPHeart import HPHeartFulfilled, HPHeartLost
 
 pygame.init()
 pygame.key.set_repeat(1, 5)
+qtApp = QApplication(sys.argv)
 window_size = (640, 480)
 window = pygame.display.set_mode(window_size)
 clock = pygame.time.Clock()
@@ -20,6 +22,14 @@ purple = (0xff, 0, 0xff)
 cyan = (0, 0xff, 0xff)
 heading_top = 30
 max_hp = 3
+
+def messagebox(title, content):
+    msgBox = QMessageBox()
+    msgBox.setIcon(QMessageBox.Information)
+    msgBox.setText(content)
+    msgBox.setWindowTitle(title)
+    msgBox.setStandardButtons(QMessageBox.Ok)
+    msgBox.exec()
 
 def heading(window: pygame.Surface, score: int, hp: int, bonus: int):
 
@@ -77,7 +87,7 @@ def main():
             bat.event_handle(event)
         if running:
             if won:
-                print('Congratulations!',"Congratulations, you won!\nYour score: %d" % (score))
+                messagebox('Congratulations!',"Congratulations, you won!\nYour score: %d" % (score))
                 running = False
                 break
             if ball.rect.y > window_size[1]:
@@ -85,7 +95,7 @@ def main():
                 bonus = 1
                 bonus_add_hp = True
                 if hp < 0:
-                    print('Sorry!',"Oh, you lose.\nTake another chance!\nYour score: %d" % (score))
+                    messagebox('Sorry!',"Oh, you lose.\nTake another chance!\nYour score: %d" % (score))
                     running = False
                     break
                 else:
