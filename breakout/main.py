@@ -6,6 +6,7 @@ from Bat import Bat
 from Brick import Brick
 
 pygame.init()
+pygame.key.set_repeat(200, 30)
 window_size = (640, 480)
 window = pygame.display.set_mode(window_size)
 background_color = (0, 0, 0)
