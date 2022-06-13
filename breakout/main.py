@@ -82,6 +82,8 @@ def main():
                 break
             if ball.rect.y > window_size[1]:
                 hp -= 1
+                bonus = 1
+                bonus_add_hp = True
                 if hp < 0:
                     print('Sorry!',"Oh, you lose.\nTake another chance!\nYour score: %d" % (score))
                     running = False
