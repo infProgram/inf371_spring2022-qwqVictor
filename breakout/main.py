@@ -38,8 +38,8 @@ def heading(window: pygame.Surface, score: int, hp: int):
     heading_text(str(score), cyan, "window_size[0] - rect.width")
 
     hp_sprites = pygame.sprite.Group()
-    for i in range(1, max_hp + 1):
-        if i <= hp:
+    for i in range(0, max_hp):
+        if i < hp:
             hp_sprites.add(HPHeartFulfilled((i, 0)))
         else:
             hp_sprites.add(HPHeartLost((i, 0)))
