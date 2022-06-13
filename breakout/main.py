@@ -19,8 +19,9 @@ def main():
     ball = Ball(window, speed_x=2, speed_y=-2, spawn=(window.get_width() / 2, bat.rect.height))
     all_sprites.add(bat, ball)
     bouncable_sprites.add(bat)
+    score = 0
 
-    for i in range(1, 6+1):
+    for i in range(1, 12+1):
         for j in range(1, 4+1):
             brick = Brick((i, j))
             all_sprites.add(brick)
@@ -36,6 +37,17 @@ def main():
                 break
             bat.event_handle(event)
         if running:
+            bounce = pygame.sprite.spritecollide(ball, bouncable_sprites, False)
+            if bounce:
+                hit_rect = bounce[0].rect
+                if hit_rect.left > ball.rect.left or ball.rect.right < hit_rect.right:
+                    ball.speed_y *= -1
+                else:
+                    ball.speed_x *= -1
+
+                if not pygame.sprite.collide_rect(ball, bat):
+                    score += len(bounce)
+
             window.fill((background_color))
             all_sprites.draw(window)
             all_sprites.update()
