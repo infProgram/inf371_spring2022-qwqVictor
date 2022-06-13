@@ -1,20 +1,44 @@
 #!/usr/bin/env python3
 import sys
 import pygame
+from Ball import Ball
+from Bat import Bat
+from Brick import Brick
 
-def main(argv: "list[str]"):
-    size = width, height = 640, 480
-    pygame.init()
-    window = pygame.display.set_mode(size)
-    clock = pygame.time.Clock()
+pygame.init()
+window_size = (640, 480)
+window = pygame.display.set_mode(window_size)
+background_color = (0, 0, 0)
+clock = pygame.time.Clock()
+
+def main():
     all_sprites = pygame.sprite.Group()
     bouncable_sprites = pygame.sprite.Group()
-    
-    while True:
+    bat = Bat(window)
+    ball = Ball(window, speed_x=4, speed_y=-4, spawn=(window.get_width() / 2, bat.rect.height))
+    all_sprites.add(bat, ball)
+    bouncable_sprites.add(bat)
 
+    for i in range(1, 6+1):
+        for j in range(1, 4+1):
+            brick = Brick((i, j))
+            all_sprites.add(brick)
+            bouncable_sprites.add(brick)
 
-        clock.tick(60)
-        pygame.display.flip()
+    print("Bootstrapped.")
+
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+                break
+        if running:
+            window.fill((background_color))
+            all_sprites.draw(window)
+            all_sprites.update()
+            pygame.display.flip()
+    pygame.quit()
 
 if __name__ == "__main__":
-    main(sys.argv)
+    main()
