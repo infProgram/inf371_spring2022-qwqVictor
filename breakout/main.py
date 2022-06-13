@@ -30,6 +30,7 @@ collide_se_list = tuple(SoundEffect("collide_%d.wav" % i) for i in range(1, 6+1)
 win_se = SoundEffect("win.wav")
 lose_se = SoundEffect("lose.wav")
 drop_se = SoundEffect("drop.wav")
+hp_recover_se = SoundEffect("hp_recover.wav")
 
 def messagebox(title: str, content: str):
     msgBox = QMessageBox()
@@ -141,6 +142,7 @@ def game():
                                     score += 60
                                 else:
                                     hp += 1
+                                    hp_recover_se.play(0)
                                 combo_add_hp = False
                         all_sprites.remove(brick)
                         bouncable_sprites.remove(brick)
