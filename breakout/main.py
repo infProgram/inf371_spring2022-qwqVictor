@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import sys
-from cv2 import line
 import pygame
 from Ball import Ball
 from Bat import Bat
@@ -49,7 +48,7 @@ def main():
     all_sprites = pygame.sprite.Group()
     bouncable_sprites = pygame.sprite.Group()
     bat = Bat(window, speed=2)
-    ball = Ball(window, speed_x=2, speed_y=-2, spawn=(window.get_width() / 2, bat.rect.height), head_y=30)
+    ball = Ball(window, speed_x=2, speed_y=-2, spawn_pos=(window_size[0] / 2, bat.rect.height), head_y=30)
     all_sprites.add(bat, ball)
     bouncable_sprites.add(bat)
     hp = 3
@@ -72,6 +71,13 @@ def main():
                 break
             bat.event_handle(event)
         if running:
+            if ball.rect.y > window_size[1]:
+                hp -= 1
+                if hp < 0:
+                    running = False
+                    break
+                else:
+                    ball.respawn()
             bounce = pygame.sprite.spritecollide(ball, bouncable_sprites, False)
             if bounce:
                 hit_rect = bounce[0].rect
