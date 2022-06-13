@@ -24,7 +24,7 @@ heading_top = 30
 max_hp = 3
 global_quit = False
 
-def messagebox(title, content):
+def messagebox(title: str, content: str):
     msgBox = QMessageBox()
     msgBox.setIcon(QMessageBox.Information)
     msgBox.setText(content)
@@ -32,7 +32,7 @@ def messagebox(title, content):
     msgBox.setStandardButtons(QMessageBox.Ok)
     msgBox.exec()
 
-def dialog(title, content):
+def dialog(title: str, content: str):
     msgBox = QMessageBox()
     msgBox.setIcon(QMessageBox.Question)
     msgBox.setText(content)
