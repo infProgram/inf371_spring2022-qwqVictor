@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from audioop import mul
 import os
 import sys
 import pygame
@@ -129,12 +130,31 @@ def game():
             bounce = pygame.sprite.spritecollide(ball, bouncable_sprites, False)
             if bounce:
                 hit_rect = bounce[0].rect
-                if hit_rect.left > ball.rect.left or ball.rect.right < hit_rect.right:
-                    ball.speed_y *= -1 * random.randint(80, 120) / 100
-                else:
-                    ball.speed_x *= -1 * random.randint(80, 120) / 100
 
-                if not pygame.sprite.collide_rect(ball, bat):
+                if pygame.sprite.collide_rect(ball, bat):
+                    offset = ball.rect.centerx - bat.rect.centerx
+                    ball.set_speed(speed_y=-1, multiply_mode=True)
+                    if offset > 0:
+                        if offset > 30:  
+                            ball.set_speed(speed_x=1.5, multiply_mode=True)
+                        elif offset > 23:
+                            ball.set_speed(speed_x=1.2, multiply_mode=True)
+                        elif offset > 17:
+                            ball.set_speed(speed_x=0.8, multiply_mode=True)
+                    else:  
+                        if offset < -30:
+                            ball.set_speed(speed_x=-1.5, multiply_mode=True)
+                        elif offset < -23:
+                            ball.set_speed(speed_x=-1.2, multiply_mode=True)
+                        elif offset < -17:
+                            ball.set_speed(speed_x=-0.8, multiply_mode=True)
+                    combo = 1
+                    combo_add_hp = True
+                else:
+                    if hit_rect.left > ball.rect.left or ball.rect.right < hit_rect.right:
+                        ball.set_speed(speed_y=-1, multiply_mode=True)
+                    else:
+                        ball.set_speed(speed_x=-1, multiply_mode=True)
                     for brick in bounce:
                         score += combo
                         combo += 1
@@ -153,9 +173,6 @@ def game():
                     if len(bouncable_sprites.sprites()) == 1:
                         won = True
                         score += hp * 360
-                else:
-                    combo = 1
-                    combo_add_hp = True
 
             window.fill((background_color))
             heading(window, score, hp, combo)
