@@ -28,19 +28,19 @@ class Ball(ImageSprite):
         self.speed_x = factor * self.spawn_speed
         self.speed_y = -(self.spawn_speed ** 2 - self.speed_x ** 2) ** (1/2)
 
-    def set_speed(self, speed_x: int=None, speed_y: int=None, multiply_mode: bool=False):
+    def set_speed(self, speed_x: float=None, speed_y: float=None, multiply_mode: bool=False):
         if speed_x != None:
             if multiply_mode:
                 self.speed_x *= speed_x
             else:
                 self.speed_x = speed_x
-            self.speed_y = self.speed_y / abs(self.speed_y) * (self.spawn_speed ** 2 - abs(self.speed_x) ** 2) ** (1/2)
+            self.speed_y = self.speed_y / abs(self.speed_y) * abs(self.spawn_speed ** 2 - abs(self.speed_x) ** 2) ** (1/2)
         if speed_y != None:
             if multiply_mode:
                 self.speed_y *= speed_y
             else:
                 self.speed_y = speed_y
-            self.speed_x = self.speed_x / abs(self.speed_x) * (self.spawn_speed ** 2 - abs(self.speed_y) ** 2) ** (1/2)
+            self.speed_x = self.speed_x / abs(self.speed_x) * abs(self.spawn_speed ** 2 - abs(self.speed_y) ** 2) ** (1/2)
 
     def update(self):
         self.rect = self.rect.move(self.speed_x, self.speed_y)
