@@ -33,7 +33,7 @@ class Ball(ImageSprite):
             if multiply_mode:
                 self.speed_x *= speed_x
             else:
-                self.speed_y = speed_y
+                self.speed_x = speed_x
             self.speed_y = self.speed_y / abs(self.speed_y) * (self.spawn_speed ** 2 - abs(self.speed_x) ** 2) ** (1/2)
         if speed_y != None:
             if multiply_mode:
