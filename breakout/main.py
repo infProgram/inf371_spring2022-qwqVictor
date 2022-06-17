@@ -85,7 +85,7 @@ def game():
     all_sprites = pygame.sprite.Group()
     bouncable_sprites = pygame.sprite.Group()
     bat = Bat(window, speed=2)
-    ball = Ball(window, speed=5, spawn_pos=(window_size[0] / 2, bat.rect.height), head_y=30)
+    ball = Ball(window, speed=3, spawn_pos=(window_size[0] / 2, bat.rect.height), head_y=30)
     all_sprites.add(bat, ball)
     bouncable_sprites.add(bat)
     hp = 3
